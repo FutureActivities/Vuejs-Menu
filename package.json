@@ -1,7 +1,7 @@
 {
   "name": "fa-menu",
   "description": "Menu",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "src/Index.js",
   "repository": {
     "type": "git",
