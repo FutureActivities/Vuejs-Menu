@@ -1,4 +1,4 @@
-# Future Activites Menu
+# Future Activities Menu
 
 Provides components to build a mega menu for desktop views and for mobile a multi-page navigation view that loads the child links on each click (includes back buttons).
 
