@@ -12,7 +12,7 @@ Import the MegaMenu and BurgerMenu components:
 
 The mega menu component will output a menu with each item a div containing the child links that will appear on hover of the parent.
 
-   <fa-menu-mega :data="data" display="multilevel" :vue-router="false"></fa-menu-mega>
+    <fa-menu-mega :data="data" display="multilevel" :vue-router="false"></fa-menu-mega>
     
 When displaying the menu you can also set how the menu should display, currently this component provides 2 options: `columns` and `multilevel` with multilevel being the default.
 The columns view will display each link as a heading of a column and then render 1 level of children underneath it.
