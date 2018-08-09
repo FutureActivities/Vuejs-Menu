@@ -1,5 +1,6 @@
 <template>
     <div class="menu__mobile-menu">
+        <slot name="prefix"></slot>
         <ul v-if="current.length == 0">
             <li v-for="(category,key) in data" v-if="canShow(category)"  class="menu__mobile-menu__item menu__mobile-menu__item--top" :class="[key]">
                 <fa-menu-link :url="category.url" v-on:click.stop.prevent="setType(key, category)">{{ category.name }}</fa-menu-link>
@@ -16,6 +17,7 @@
                 <fa-menu-link :url="category.url" v-on:click.stop.prevent="item(category)">{{ category.name }}</fa-menu-link>
             </li>
         </ul>
+        <slot name="suffix"></slot>
     </div>
 </template>
 
