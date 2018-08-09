@@ -9,7 +9,7 @@
             
             <!-- Multilevel Menu - Displays the children on hover of the parent -->
             <div class="menu__megamenu__dropdown" v-if="display == 'multilevel'">
-                <div v-if="item.pre" class="menu__pre" v-html="item.pre"></div>
+                <div v-if="item.prefix" class="menu__prefix" v-html="item.prefix"></div>
                 
                 <ul v-if="item.links" v-for="(list,level) in item.links" class="menu__links" :class="levelClass(level)">
                     <li v-for="link in list" :class="levelClass(level)" v-on:mouseover="menuItemHover(link.id, level)">
@@ -22,12 +22,12 @@
                     </li>
                 </ul>
                 
-                <div v-if="item.custom" class="menu__custom" v-html="item.custom"></div>
+                <div v-if="item.suffix" class="menu__suffix" v-html="item.suffix"></div>
             </div>
             
             <!-- Columns Menu - Supports 1 level only and displays underneath the parent link in columns -->
             <div class="menu__megamenu__columns" v-if="display == 'columns'">
-                <div v-if="item.pre" class="menu__pre" v-html="item.pre"></div>
+                <div v-if="item.prefix" class="menu__prefix" v-html="item.prefix"></div>
                 
                 <div v-if="item.links" v-for="(list,level) in item.links" class="menu__links">
                     <div v-for="link in list" :class="levelClass(level)" class="menu__links__parent">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 
-                <div v-if="item.custom" class="menu__custom" v-html="item.custom"></div>
+                <div v-if="item.suffix" class="menu__suffix" v-html="item.suffix"></div>
             </div>
         </div>
     </div>
