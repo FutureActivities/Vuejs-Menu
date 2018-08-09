@@ -60,7 +60,7 @@
 import FaLink from './Link.vue'
 
 export default {
-    name: 'fa-menu-mega',
+    name: 'fa-menu-mega-item',
     data: function() {
         return {
             active: false,
@@ -160,6 +160,7 @@ export default {
            this.active = false;
         },
         handleEnter: function(){
+            this.$emit('enter');
             this.activeWaiting = true;
             setTimeout(() => {
                 if (this.activeWaiting)
@@ -168,6 +169,7 @@ export default {
             }, this.hoverDelay);
         },
         handleLeave: function(){
+            this.$emit('leave');
             this.active = false;
             this.activeWaiting = false;
         }
