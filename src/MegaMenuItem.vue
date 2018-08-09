@@ -1,15 +1,17 @@
 <template>
     <div class="menu__megamenu" v-if="canShow(item)" :class="[{'menu__megamenu--parent': item.links || item.custom}, itemClass]" @mouseenter="handleEnter()" @mouseleave="handleLeave()">
         <fa-menu-link class="menu__megamenu__item" :vue-router="vueRouter" :classes="item.classes" :url="item.url" v-on:click="handleClick()">
+            <div v-if="item.prefix" class="prefix" v-html="item.prefix"></div>
             <div v-if="item.override" v-html="item.override"></div>
             <span v-else>{{ item.name }}</span>
+            <div v-if="item.suffix" class="suffix" v-html="item.suffix"></div>
         </fa-menu-link>
         
         <div class="menu__megamenu__dropdown-wrapper" v-show="active" v-if="item.links || item.custom">
             
             <!-- Multilevel Menu - Displays the children on hover of the parent -->
             <div class="menu__megamenu__dropdown" v-if="display == 'multilevel'">
-                <div v-if="item.prefix" class="menu__prefix" v-html="item.prefix"></div>
+                <div v-if="item.pre" class="menu__pre" v-html="item.pre"></div>
                 
                 <ul v-if="item.links" v-for="(list,level) in item.links" class="menu__links" :class="levelClass(level)">
                     <li v-for="link in list" :class="levelClass(level)" v-on:mouseover="menuItemHover(link.id, level)">
@@ -22,12 +24,12 @@
                     </li>
                 </ul>
                 
-                <div v-if="item.suffix" class="menu__suffix" v-html="item.suffix"></div>
+                <div v-if="item.custom" class="menu__custom" v-html="item.custom"></div>
             </div>
             
             <!-- Columns Menu - Supports 1 level only and displays underneath the parent link in columns -->
             <div class="menu__megamenu__columns" v-if="display == 'columns'">
-                <div v-if="item.prefix" class="menu__prefix" v-html="item.prefix"></div>
+                <div v-if="item.pre" class="menu__prefix" v-html="item.pre"></div>
                 
                 <div v-if="item.links" v-for="(list,level) in item.links" class="menu__links">
                     <div v-for="link in list" :class="levelClass(level)" class="menu__links__parent">
@@ -48,7 +50,7 @@
                     </div>
                 </div>
                 
-                <div v-if="item.suffix" class="menu__suffix" v-html="item.suffix"></div>
+                <div v-if="item.custom" class="menu__custom" v-html="item.custom"></div>
             </div>
         </div>
     </div>

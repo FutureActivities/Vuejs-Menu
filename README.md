@@ -71,8 +71,8 @@ Structure your data object in the following format:
              ]
           ],
           "classes": ["custom-class"],
-          "prefix": "<p>Custom HTML that will be displayed on the full Mega Menu before the links.</p>",
-          "suffix": "<p>Custom HTML that will be displayed on the full Mega Menu after the links.</p>"
+          "pre": "<p>Custom HTML that will be displayed on the full Mega Menu before the links.</p>",
+          "custom": "<p>Custom HTML that will be displayed on the full Mega Menu after the links.</p>"
        },
        "standalone":{
           "name":"Standalone Link",
