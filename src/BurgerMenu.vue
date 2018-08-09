@@ -1,5 +1,5 @@
 <template>
-    <div class="menu__mobile-menu">
+    <div class="menu__mobile-menu" :class="{'menu__mobile-menu--top': history.length == 0}">
         <slot name="prefix"></slot>
         <ul v-if="current.length == 0">
             <li v-for="(category,key) in data" v-if="canShow(category)"  class="menu__mobile-menu__item menu__mobile-menu__item--top" :class="[key]">
@@ -11,7 +11,7 @@
         
         <ul v-if="current.length > 0">
             <li class="menu__mobile-menu__item menu__mobile-menu__item--back" v-on:click="back">Back</li>
-            <li class="menu__mobile-menu__item menu__mobile-menu__item--parent">
+            <li class="menu__mobile-menu__item menu__mobile-menu__item--parent" :class="[this.type]">
                 <div v-if="previous().prefix" class="prefix" v-html="previous().prefix"></div>
                 <fa-menu-link class="link" v-if="previous().url !== null" :vue-router="vueRouter" :url="previous().url" v-on:click="$emit('click')">{{ previous().name }}</fa-menu-link>
                 <span  class="link" v-else>{{ previous().name }}</span>
