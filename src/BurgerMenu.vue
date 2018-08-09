@@ -1,5 +1,5 @@
 <template>
-    <div class="menu__mobile-menu" :class="{'menu__mobile-menu--top': history.length == 0}">
+    <div class="menu__mobile-menu" :class="{'menu__mobile-menu--top': current.length == 0}">
         <slot name="prefix"></slot>
         <ul v-if="current.length == 0">
             <li v-for="(category,key) in data" v-if="canShow(category)"  class="menu__mobile-menu__item menu__mobile-menu__item--top" :class="[key]">
