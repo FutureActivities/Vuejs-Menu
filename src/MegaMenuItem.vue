@@ -9,7 +9,7 @@
         
         <div class="menu__megamenu__dropdown-wrapper" v-show="active" v-if="item.links || item.after">
             
-            <div :class="{'menu__megamenu__dropdown': display == 'multilevel', 'menu__megamenu__columns': display == columns}">
+            <div :class="{'menu__megamenu__dropdown': display == 'multilevel', 'menu__megamenu__columns': display == 'columns'}">
                 <div v-if="item.before && item.before.length > 0" class="menu__megamenu__components menu__megamenu__components--before">
                     <component v-for="component, index in item.before" v-if="component.component in components" :is="components[component.component]" :key="index" v-bind="component.props"></component>
                 </div>
