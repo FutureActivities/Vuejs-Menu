@@ -16,11 +16,17 @@ Import the MegaMenu and BurgerMenu components:
 
 The mega menu component will output a menu with each item a div containing the child links that will appear on hover of the parent.
 
-    <fa-menu-mega :data="data" display="multilevel"></fa-menu-mega>
+    <fa-menu-mega :data="data" display="multilevel" :components="components"></fa-menu-mega>
     
 When displaying the menu you can also set how the menu should display, currently this component provides 2 options: `columns` and `multilevel` with multilevel being the default.
 The columns view will display each link as a heading of a column and then render 1 level of children underneath it.
 The multilevel view will list all the links in column 1 and then as you hover over a link the children are displayed in the next column.
+
+`components` prop is optional but required if `before` or `after` is used in the data. This should be an object of imported components, e.g:
+
+    {
+        'product': Product,
+    }
     
 ### Burger Menu
 
@@ -75,8 +81,16 @@ Structure your data object in the following format:
              ]
           ],
           "classes": ["custom-class"],
-          "pre": "<p>Custom HTML that will be displayed on the full Mega Menu before the links.</p>",
-          "custom": "<p>Custom HTML that will be displayed on the full Mega Menu after the links.</p>"
+          "before": [
+              {
+                  "component": "my-component-name",
+                  "props": {
+                      "name": "Hello",
+                      "show": false
+                  }
+              }
+          ],
+          "after": []
        },
        "standalone":{
           "name":"Standalone Link",
@@ -97,7 +111,7 @@ Each item can also be hidden from the horizontal mega menu or the burger menu, s
 
 `override` allows you to use your own HTML in the horizontal bar menu item.
 
-`custom` allows you to use your own HTML inside the horizontal bar mega menu.
+`before` and `after` allows you to dynamically load custom components for that menu item.
 
 #### Options
 

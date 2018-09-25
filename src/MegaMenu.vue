@@ -1,6 +1,7 @@
 <template>
     <div class="menu">
-        <fa-menu-megaitem v-for="(item,key) in data" :key="key" :item="item" :item-class="key" :display="display" :vue-router="vueRouter" :hover-delay="hoverDelay" v-on:click="$emit('click')" v-on:enter="$emit('enter', item)" v-on:leave="$emit('leave', item)"></fa-menu-megaitem>
+        <fa-menu-megaitem v-for="(item,key) in data" :key="key" :item="item" :item-class="key" :components="components" :display="display" :vue-router="vueRouter" :hover-delay="hoverDelay" v-on:click="$emit('click')" v-on:enter="$emit('enter', item)" v-on:leave="$emit('leave', item)">
+        </fa-menu-megaitem>
     </div>
 </template>
 
@@ -30,6 +31,13 @@ export default {
         hoverDelay: {
             type: Number,
             default: 0,
+            required: false
+        },
+        components: {
+            type: Object,
+            default() {
+                return {};
+            },
             required: false
         }
     },

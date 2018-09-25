@@ -1,5 +1,5 @@
 <template>
-    <div class="menu__megamenu" v-if="canShow(item)" :class="[{'menu__megamenu--parent': item.links || item.custom}, itemClass]" @mouseenter="handleEnter()" @mouseleave="handleLeave()">
+    <div class="menu__megamenu" v-if="canShow(item)" :class="[{'menu__megamenu--parent': item.links || item.after}, itemClass]" @mouseenter="handleEnter()" @mouseleave="handleLeave()">
         <fa-menu-link class="menu__megamenu__item" :vue-router="vueRouter" :classes="item.classes" :url="item.url" v-on:click="handleClick()">
             <div v-if="item.prefix" class="prefix" v-html="item.prefix"></div>
             <div v-if="item.override" v-html="item.override"></div>
@@ -7,13 +7,15 @@
             <div v-if="item.suffix" class="suffix" v-html="item.suffix"></div>
         </fa-menu-link>
         
-        <div class="menu__megamenu__dropdown-wrapper" v-show="active" v-if="item.links || item.custom">
+        <div class="menu__megamenu__dropdown-wrapper" v-show="active" v-if="item.links || item.after">
             
-            <!-- Multilevel Menu - Displays the children on hover of the parent -->
-            <div class="menu__megamenu__dropdown" v-if="display == 'multilevel'">
-                <div v-if="item.pre" class="menu__pre" v-html="item.pre"></div>
+            <div :class="{'menu__megamenu__dropdown': display == 'multilevel', 'menu__megamenu__columns': display == columns}">
+                <div v-if="item.before && item.before.length > 0" class="menu__megamenu__components menu__megamenu__components--before">
+                    <component v-for="component, index in item.before" v-if="component.component in components" :is="components[component.component]" :key="index" v-bind="component.props"></component>
+                </div>
                 
-                <ul v-if="item.links" v-for="(list,level) in item.links" class="menu__links" :class="levelClass(level)">
+                <!-- Multilevel Menu - Displays the children on hover of the parent -->
+                <ul v-if="display == 'multilevel' && item.links" v-for="(list,level) in item.links" class="menu__links" :class="levelClass(level)">
                     <li v-for="link in list" :class="levelClass(level)" v-on:mouseover="menuItemHover(link.id, level)">
                         <fa-menu-link :vue-router="vueRouter" :url="link.url" :classes="[{'active': isActive(link.id, level)}, link.classes]" v-on:click="handleClick()">
                             <div v-if="link.prefix" class="prefix" v-html="link.prefix"></div>
@@ -24,14 +26,8 @@
                     </li>
                 </ul>
                 
-                <div v-if="item.custom" class="menu__custom" v-html="item.custom"></div>
-            </div>
-            
-            <!-- Columns Menu - Supports 1 level only and displays underneath the parent link in columns -->
-            <div class="menu__megamenu__columns" v-if="display == 'columns'">
-                <div v-if="item.pre" class="menu__prefix" v-html="item.pre"></div>
-                
-                <div v-if="item.links" v-for="(list,level) in item.links" class="menu__links">
+                <!-- Columns Menu - Supports 1 level only and displays underneath the parent link in columns -->
+                <div v-if="display == 'columns' && item.links" v-for="(list,level) in item.links" class="menu__links">
                     <div v-for="link in list" :class="levelClass(level)" class="menu__links__parent">
                         <div v-if="link.prefix" class="prefix" v-html="link.prefix"></div>
                         <fa-menu-link :vue-router="vueRouter" :url="link.url" class="menu__links__heading" :classes="item.classes" v-if="link.url" v-on:click="handleClick()">{{ link.name }}</fa-menu-link>
@@ -50,7 +46,9 @@
                     </div>
                 </div>
                 
-                <div v-if="item.custom" class="menu__custom" v-html="item.custom"></div>
+                <div v-if="item.after && item.after.length > 0" class="menu__megamenu__components menu__megamenu__components--after">
+                    <component v-for="component, index in item.after" v-if="component.component in components" :is="components[component.component]" :key="index" v-bind="component.props"></component>
+                </div>
             </div>
         </div>
     </div>
@@ -89,6 +87,18 @@ export default {
             type: Number,
             default: 0,
             required: false
+        },
+        components: {
+            type: Object,
+            default() {
+                return {};
+            },
+            required: false
+        }
+    },
+    computed: {
+        componentsAfter() {
+            return this.components.filter(component => component.position == 'after');
         }
     },
     methods: {
