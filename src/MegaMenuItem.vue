@@ -16,7 +16,7 @@
                 
                 <!-- Multilevel Menu - Displays the children on hover of the parent -->
                 <ul v-if="display == 'multilevel' && item.links" v-for="(list,level) in item.links" class="menu__links" :class="levelClass(level)">
-                    <li v-for="link in list" :class="levelClass(level)" v-on:mouseover="menuItemHover(link.id, level)">
+                    <li v-for="link in list" :class="levelClass(level)" @mouseover="menuItemHover(link.id, level)" @mouseenter="handleLinkEnter(link)" @mouseleave="handleLinkLeave(link)">
                         <fa-menu-link :vue-router="vueRouter" :url="link.url" :classes="[{'active': isActive(link.id, level)}, link.classes]" v-on:click="handleClick()">
                             <div v-if="link.prefix" class="prefix" v-html="link.prefix"></div>
                             <div v-if="link.img" class="image"><img :src="link.img" :alt="link.name" /></div>
@@ -30,7 +30,7 @@
                 <div v-if="display == 'columns' && item.links" v-for="(list,level) in item.links" class="menu__links">
                     <div v-for="link in list" :class="levelClass(level)" class="menu__links__parent">
                         <div v-if="link.prefix" class="prefix" v-html="link.prefix"></div>
-                        <fa-menu-link :vue-router="vueRouter" :url="link.url" class="menu__links__heading" :classes="item.classes" v-if="link.url" v-on:click="handleClick()">{{ link.name }}</fa-menu-link>
+                        <fa-menu-link :vue-router="vueRouter" :url="link.url" class="menu__links__heading" :classes="item.classes" v-if="link.url" v-on:click="handleClick()"  @mouseenter.native="handleLinkEnter(link)" @mouseleave.native="handleLinkLeave(link)">{{ link.name }}</fa-menu-link>
                         <span class="menu__links__heading" :class="item.classes" v-else>{{ link.name }}</span>
                         <ul>
                             <li v-for="child in getChildren(link.id)">
@@ -182,6 +182,18 @@ export default {
             this.$emit('leave');
             this.active = false;
             this.activeWaiting = false;
+        },
+        handleLinkEnter: function(link){
+            this.$emit('linkEnter', {
+                'menu': this.item,
+                'link': link
+            });
+        },
+        handleLinkLeave: function(link){
+            this.$emit('linkLeave', {
+                'menu': this.item,
+                'link': link
+            });
         }
     },
     components: {

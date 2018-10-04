@@ -1,6 +1,18 @@
 <template>
     <div class="menu">
-        <fa-menu-megaitem v-for="(item,key) in data" :key="key" :item="item" :item-class="key" :components="components" :display="display" :vue-router="vueRouter" :hover-delay="hoverDelay" v-on:click="$emit('click')" v-on:enter="$emit('enter', item)" v-on:leave="$emit('leave', item)">
+        <fa-menu-megaitem v-for="(item,key) in data" 
+            :key="key" 
+            :item="item" 
+            :item-class="key" 
+            :components="components" 
+            :display="display" 
+            :vue-router="vueRouter" 
+            :hover-delay="hoverDelay" 
+            v-on:click="$emit('click')" 
+            v-on:enter="$emit('enter', item)" 
+            v-on:leave="$emit('leave', item)"
+            v-on:linkEnter="handleLinkEnter"
+            v-on:linkLeave="handleLinkLeave">
         </fa-menu-megaitem>
     </div>
 </template>
@@ -39,6 +51,14 @@ export default {
                 return {};
             },
             required: false
+        }
+    },
+    methods: {
+        handleLinkEnter: function(link) {
+            this.$emit('linkEnter', link);
+        },
+        handleLinkLeave: function(link) {
+            this.$emit('linkLeave', link);
         }
     },
     components: {
