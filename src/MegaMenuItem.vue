@@ -185,13 +185,13 @@ export default {
         },
         handleLinkEnter: function(link){
             this.$emit('linkEnter', {
-                'menu': this.item,
+                'menu': this.itemClass,
                 'link': link
             });
         },
         handleLinkLeave: function(link){
             this.$emit('linkLeave', {
-                'menu': this.item,
+                'menu': this.itemClass,
                 'link': link
             });
         }
