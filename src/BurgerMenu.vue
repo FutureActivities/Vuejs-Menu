@@ -108,6 +108,7 @@ export default {
          */
         back: function() {
             var previous = this.history.pop();
+            this.$emit('clicked-back');
             this.current = previous ? previous.links : [];
         },
 

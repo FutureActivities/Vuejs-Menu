@@ -121,3 +121,10 @@ Each item can also be hidden from the horizontal mega menu or the burger menu, s
 | vue-router | Use `router-link` instead of `a` tags | Boolean | false | MegaMenu,BurgerMenu |
 | display | Display the menu as `columns` or `multilevel` | String | multilevel | MegaMenu |
 | hover-delay | Delay the opening of the menu on hover. Time in milliseconds. | Number | 0 | MegaMenu |
+
+#### Events
+
+| Name | Description | Component |
+|--|--|--|--|--|
+| clicked-back | Fired when clicked 'back' on the burger menu. | BurgerMenu |
+
