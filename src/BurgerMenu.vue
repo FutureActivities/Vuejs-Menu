@@ -2,7 +2,7 @@
     <div class="menu__mobile-menu" :class="{'menu__mobile-menu--top': current.length == 0}">
         <slot name="prefix"></slot>
         <ul v-if="current.length == 0">
-            <li v-for="(category,key) in data" v-if="canShow(category)"  class="menu__mobile-menu__item menu__mobile-menu__item--top" :class="[key]">
+            <li v-for="(category,key) in data" v-if="canShow(category)"  class="menu__mobile-menu__item menu__mobile-menu__item--top" :class="[key, {'menu__mobile-menu__item--children': 'source' in category}]">
                 <div v-if="category.prefix" class="prefix" v-html="category.prefix"></div>
                 <fa-menu-link class="link" :url="category.url" v-on:click.stop.prevent="setType(key, category)">{{ category.name }}</fa-menu-link>
                 <div v-if="category.suffix" class="suffix" v-html="category.suffix"></div>
