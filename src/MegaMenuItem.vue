@@ -97,7 +97,7 @@ export default {
         }
     },
     computed: {
-        componentsAfter() {
+        componentsAfter: function() {
             return this.components.filter(component => component.position == 'after');
         }
     },
