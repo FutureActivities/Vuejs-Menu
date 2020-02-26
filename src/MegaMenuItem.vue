@@ -98,7 +98,9 @@ export default {
     },
     computed: {
         componentsAfter: function() {
-            return this.components.filter(component => component.position == 'after');
+            return this.components.filter(function(component) {
+                return component.position == 'after';
+            });
         }
     },
     methods: {
@@ -170,12 +172,13 @@ export default {
            this.active = false;
         },
         handleEnter: function(){
+            let self = this;
             this.$emit('enter');
             this.activeWaiting = true;
-            setTimeout(() => {
-                if (this.activeWaiting)
-                    this.active = true;
-                this.activeWaiting = false;
+            setTimeout(function() {
+                if (self.activeWaiting)
+                    self.active = true;
+                self.activeWaiting = false;
             }, this.hoverDelay);
         },
         handleLeave: function(){
