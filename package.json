@@ -11,8 +11,6 @@
   "license": "ISC",
   "private": true,
   "scripts": {},
-  "dependencies": {
-    "babel-preset-env": "^1.7.0"
-  },
+  "dependencies": {},
   "devDependencies": {}
 }
