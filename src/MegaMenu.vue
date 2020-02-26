@@ -47,7 +47,7 @@ export default {
         },
         components: {
             type: Object,
-            default() {
+            default: function() {
                 return {};
             },
             required: false
